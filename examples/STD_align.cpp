@@ -16,6 +16,57 @@
 #define RGB_WIDTH 1920
 #define RGB_HEIGHT 1080
 
+#define RGBD_WINDOW_NAME "RGBD"
+#define RGB_WINDOW_NAME "RGB"
+#define TOF_WINDOW_NAME "TOF"
+
+
+
+
+void Render(sy3::depth_frame *piexls_depth, sy3::frame *piexls_rgb, int width, int height)
+{
+	std::cout << width << std::endl;
+	std::cout << height << std::endl;
+
+
+	cv::Mat gray16(piexls_depth->get_height(), piexls_depth->get_width(), CV_16UC1, piexls_depth->get_data());
+	cv::Mat tmp;
+	cv::Mat gray8 = cv::Mat::zeros(gray16.size(), CV_8U);
+	cv::normalize(gray16, tmp, 0, 255, cv::NORM_MINMAX);
+	cv::convertScaleAbs(tmp, gray8);
+	//cv::namedWindow("toftest", cv::WINDOW_NORMAL);
+	//cv::imshow("toftest", gray16);
+
+	cv::Mat yuvImg(piexls_rgb->get_height(), piexls_rgb->get_width(), CV_8UC3, piexls_rgb->get_data());
+	/*cv::namedWindow("rgbtest", cv::WINDOW_NORMAL);
+	cv::imshow("rgbtest", yuvImg);*/
+
+	
+
+	//RGBD
+	cv::Mat rgbd_img(height, width, CV_8UC3, cv::Scalar(0));// rgb_img;
+	for (int row = 0; row < yuvImg.rows; row++){
+		for (int col = 0; col < yuvImg.cols; col++)
+		{
+			if (gray16.ptr<uint16_t>(row)[col] > 10)
+			{
+				rgbd_img.ptr<uchar>(row)[col * 3] = yuvImg.ptr<uchar>(row)[col * 3];
+				rgbd_img.ptr<uchar>(row)[col * 3 + 1] = yuvImg.ptr<uchar>(row)[col * 3 + 1];
+				rgbd_img.ptr<uchar>(row)[col * 3 + 2] = yuvImg.ptr<uchar>(row)[col * 3 + 2];
+			}
+		}
+	}
+	cv::namedWindow(RGBD_WINDOW_NAME, cv::WINDOW_NORMAL);
+	cv::resizeWindow(RGBD_WINDOW_NAME, RGB_WIDTH, RGB_HEIGHT);
+	cv::imshow(RGBD_WINDOW_NAME, rgbd_img);
+
+}
+
+
+
+
+
+
 void show_depth_frame(sy3::depth_frame *frame, const char *name)
 {
 	if (frame)
@@ -28,6 +79,7 @@ void show_depth_frame(sy3::depth_frame *frame, const char *name)
 		cv::convertScaleAbs(tmp, gray8);
 		cv::namedWindow(name, cv::WINDOW_NORMAL);
 		cv::imshow(name, gray8);
+		
 	}
 }
 
@@ -43,6 +95,7 @@ void show_rgb_rgb_frame(sy3::frame *frame, const char *name)
 		cv::imshow(name, yuvImg);
 		const sy3::stream_profile *rgb_profile = frame->get_profile();
 		sy3::sy3_intrinsics rgb_inteinics = rgb_profile->get_intrinsics();
+
 	}
 }
 
@@ -65,6 +118,9 @@ void show_align_rgbd(sy3::depth_frame *depth, sy3::rgb_frame *rgb, sy3::process_
 			sy3::frameset *set = engine->align_to_rgb(depth, rgb, e);
 			show_depth_frame(set->get_depth_frame(), "algin_depth");
 			show_rgb_rgb_frame(set->get_rgb_frame(), "algin_rgb");
+			int height = set->get_depth_frame()->get_height();
+			int width = set->get_depth_frame()->get_width();
+			Render(set->get_depth_frame(),set->get_rgb_frame(),width,height);
 			delete set;
 
 		}

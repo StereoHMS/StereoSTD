@@ -1,30 +1,72 @@
 #include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
+#include <fstream>
 
 #define RAW_WIDTH 1280
 #define RAW_HEIGHT 960
 
-#if 1
+
 #define DEPTH_WIDTH 640
 #define DEPTH_HEIGHT 480
-#else
-#define DEPTH_WIDTH 320
-#define DEPTH_HEIGHT 240
-#endif
+
+
 
 #define RGB_WIDTH 1920
 #define RGB_HEIGHT 1080
 
+void SavePointCloud(float* coord3_, std::string path) {
 
-void show_point_cloud_frame(sy3::depth_frame *frame, const char* name,sy3::process_engine* engine)
+	int m_width = 640;
+	int m_height = 480;
+
+	std::fstream points;
+
+	points.open(path, std::fstream::out);
+	points << "ply" << std::endl;
+	points << "			format ascii 1.0" << std::endl;
+	points << "			element vertex " << m_width * m_height << std::endl;
+	points << "			property float x" << std::endl;
+	points << "			property float y" << std::endl;
+	points << "			property float z" << std::endl;
+	points << "			element face 0" << std::endl;
+	points << "			property list uchar int vertex_index" << std::endl;
+	points << "			end_header" << std::endl;
+
+	std::string writestring;
+
+	for (uint32_t i = 0; i < m_width * m_height; ++i) {
+		int x = 0, y = 0, z = 0;
+		if (i < m_width * 2) {
+			x = 0;
+			y = 0;
+			z = 0;
+		}
+		else {
+			x = coord3_[i * 3 + 0];
+			y = coord3_[i * 3 + 1];
+			z = coord3_[i * 3 + 2];
+		}
+
+		writestring += std::to_string(x) + " " + std::to_string(y) + " " +
+			std::to_string(z) + "\n";
+	}
+	points << writestring;
+	points.close();
+}
+
+
+void show_point_cloud_frame(sy3::depth_frame *frame, const char* name,sy3::process_engine* engine,float index)
 {
 	if (frame) {
+
 		sy3::sy3_error e;
 		sy3::points* points = engine->comptute_points(frame,e);
-
-
-
+		std::string path = "./tof_pointcloud_" + std::to_string(index)+".ply";
+		//std::cout << points->get_length() << std::endl;
+		std::cout <<" write point cloud ...."<< path <<std::endl;
+		float* data = points->get_points();		
+		SavePointCloud(data,path);
 		delete points;
 	}
 
@@ -70,15 +112,19 @@ int main(int argc, char **argv)
 
 	pline->start(cfg, e);
 
+	
 	uint16_t exposure = 0;
 	bool quit = false;
+	float index = 0;
 	while (!quit)
 	{
-
+		index+=1.000;
+		std::ofstream ofs;
+		
 		sy3::frameset *frameset = pline->wait_for_frames(SY3_DEFAULT_TIMEOUT, e);
 
 		sy3::depth_frame *depth_frame = frameset->get_depth_frame();
-		show_point_cloud_frame(depth_frame, "POINT_CLOUD", pline->get_process_engin(e));
+		show_point_cloud_frame(depth_frame, "POINT_CLOUD", pline->get_process_engin(e),index);
 
 		delete frameset;
 		switch (cv::waitKey(1))

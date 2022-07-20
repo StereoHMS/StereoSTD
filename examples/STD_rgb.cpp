@@ -33,8 +33,12 @@ int main(int argc, char **argv)
 		printf("error:%s \n", sy3::sy3_error_to_string(e));
 		return 0;
 	}
+	const char* ch = sy3::sy3_get_device_info(dev, sy3::sy3_camera_info::SY3_CAMERA_INFO_NAME, e);
+	std::cout << " hello  " << ch << std::endl;
+
 
 	sy3::pipeline *pline = sy3::sy3_create_pipeline(ctx, e);
+
 
 	sy3::config *cfg = sy3_create_config(e);
 	cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_RGB, RGB_WIDTH, RGB_HEIGHT, e);

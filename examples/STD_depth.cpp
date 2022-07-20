@@ -70,12 +70,49 @@ void show_depth_frame(sy3::depth_frame *frame, const char* name)
 		uint8_t* depth_color = frame->apply_colormap();
 		cv::Mat yuvImg(frame->get_height(), frame->get_width(), CV_8UC3, depth_color);
 		
+
+
+		//get 10*10 pixel middle value
+		uint16_t* depthdata = (uint16_t*)frame->get_data();
+		const int pixel_count = 100;
+		const int radius = 5;
+		float p1[pixel_count] = { 0 };
+		int index_p1 = 0;
+		for (int i = -radius; i < radius; i++)
+			for (int j = -radius; j < radius; j++) {
+				int row = frame->get_height() / 2 + i;
+				int col = frame->get_width() / 2 + j;
+				p1[index_p1] = depthdata[row * frame->get_width() + col];
+				index_p1++;
+			}
+
+
+
+		std::sort(p1, p1 + pixel_count);// min 2 max
+		int sum_p1 = 0;
+		for (int i = 0; i < pixel_count; i++) {
+			sum_p1 += p1[i];
+		}
+		//cout << std::endl;
+		int average = sum_p1 / pixel_count;
+		/*std::cout << "  average : " << average << "  min : " << p1[0]
+			<< "  max : " << p1[pixel_count - 1] << "  median  : " << p1[pixel_count / 2 - 1] << " max min diff value  :"
+			<< p1[pixel_count - 1] - p1[0] << std::endl;*/
+		int centerdepth = depthdata[640 * 480 / 2 + 640 / 2];
+		std::string center_depth = "cer : " + std::to_string(centerdepth);
+		std::string avg_depth = "avg : " + std::to_string(average);
+		std::string log = center_depth + " " + avg_depth + " dif " + std::to_string(centerdepth - average);
+	
+
+
+
+
+
 		std::string msg = std::to_string(frame->get_width())+ "x"+std::to_string(frame->get_height()) + " fps:" + std::to_string(g_fps);
 		int font_face = cv::FONT_HERSHEY_COMPLEX;
 		double font_scale = 1;
-		int thickness = 2;
+		int thickness = 1;
 		int baseline;
-		//��ȡ�ı���ĳ���
 		cv::Size text_size = cv::getTextSize(msg, font_face, font_scale, thickness, &baseline);
 		
 		cv::Point origin;
@@ -84,7 +121,17 @@ void show_depth_frame(sy3::depth_frame *frame, const char* name)
 		cv::putText(yuvImg, msg, origin, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 2, 0);
 
 
+		cv::Point originlog;
+		originlog.x = yuvImg.cols / 2 - text_size.width;
+		originlog.y = yuvImg.rows;
+		cv::putText(yuvImg, log, originlog, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 2, 0);
+
+
+		cv::rectangle(yuvImg, cv::Point(yuvImg.size().width / 2 - 5, yuvImg.size().height / 2 - 5), cv::Point(yuvImg.size().width / 2 + 5, yuvImg.size().height / 2 + 5), cv::Scalar(0, 255, 255));
+
+
 		cv::namedWindow("test", cv::WINDOW_NORMAL);
+		cv::resizeWindow("test", frame->get_width(), frame->get_height());
 		cv::imshow("test", yuvImg);
 
 		 sy3::sy3_intrinsics intrinsics = frame->get_profile()->get_intrinsics();
