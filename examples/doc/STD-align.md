@@ -1,4 +1,4 @@
-# STD-align Sample
+# [STD-align](https://github.com/StereoHMS/StereoSTD/blob/master/examples/STD_align.cpp) Sample
 
 ## Overview
 
@@ -7,7 +7,7 @@
 ## Expected Output
 
 実行すると、デプス疑似カラー画像、RGBカラー画像および位置合わせを行った後RGBDの画像が表示されます。
-<p align="center"><img src="doc/img/rgbd.png" width="100%" /><br><br></p>
+<p align="center"><img src="https://github.com/StereoHMS/StereoSTD/blob/master/examples/doc/img/rgbd.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
