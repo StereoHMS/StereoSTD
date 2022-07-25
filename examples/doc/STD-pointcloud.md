@@ -1,4 +1,4 @@
-# STD-pointcloud Sample
+# [STD-pointcloud](https://github.com/StereoHMS/StereoSTD/blob/master/examples/STD_pointcloud.cpp) Sample
 
 ## Overview
 
@@ -7,13 +7,13 @@
 ## Expected Output
 
 実行成功すると、コマンドプロンプトで点群データが書き込まれていことが表示されます。plyファイルはmeshlabで直接モデルを読み取る、また表示することができます。
-<p align="center"><img src="doc/img/pc1.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/pc2.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/pc3.png" width="100%" /><br><br></p>
+<p align="center"><img src="https://github.com/StereoHMS/StereoSTD/blob/master/examples/doc/img/pc1.png" width="100%" /><br><br></p>
+<p align="center"><img src="https://github.com/StereoHMS/StereoSTD/blob/master/examples/doc/img/pc2.png" width="100%" /><br><br></p>
+<p align="center"><img src="https://github.com/StereoHMS/StereoSTD/blob/master/examples/doc/img/pc3.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
-初めに、SDKのヘッダーファイルとOpenCV依存ライブラリを参照する必要があります。
+初めに、SDKのヘッダーファイルとOpenCV依存ライブラリを参照する必要があります
 ```cpp
 #include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>

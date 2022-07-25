@@ -1,4 +1,4 @@
-# STD-depth Sample
+# [STD-depth](https://github.com/StereoHMS/StereoSTD/blob/master/examples/STD_depth.cpp) Sample
 
 ## Overview
 
@@ -7,11 +7,11 @@
 ## Expected Output
 
 実行成功すると、デプス疑似カラー画像で出力のデータが表示され、ウィンドウ内の10*10ピクセルのデータは常に更新されています。
-<p align="center"><img src="doc/img/depth.png" width="100%" /><br><br></p>
+<p align="center"><img src="https://github.com/StereoHMS/StereoSTD/blob/master/examples/doc/img/depth.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
-初めに、SDKのヘッダーファイルとOpenCV依存ライブラリを参照する必要があります。
+初めに、SDKのヘッダーファイルとOpenCV依存ライブラリを参照する必要があります
 ```cpp
 #include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
@@ -35,7 +35,7 @@ Step 2：pipelineを作成します
 ```cpp
     sy3::pipeline *pline = sy3::sy3_create_pipeline(ctx, e);
 ```
-Step 3：データストリームをコンフィグします。
+Step 3：データストリームをコンフィグします
 ```cpp
     sy3::config *cfg = sy3_create_config(e);
     cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_RGB, RGB_WIDTH, RGB_HEIGHT, e);

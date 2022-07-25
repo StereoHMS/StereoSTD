@@ -11,14 +11,14 @@
 
 ## Code Overview
 
-初めに、SDKのヘッダーファイルとOpenCV依存ライブラリを参照する必要があります。
+初めに、SDKのヘッダーファイルとOpenCV依存ライブラリを参照する必要があります
 ```cpp
 #include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 ```
 
-Step 1: データの出力の設定とデバイスの取得。
+Step 1: データの出力の設定とデバイスの取得
 ```cpp
     sy3::sy3_error e;
 	printf("version:%s \n", sy3::sy3_get_version(e));
@@ -31,7 +31,7 @@ Step 1: データの出力の設定とデバイスの取得。
 		return 0;
 	}
 ```
-Step 2：pipelineを作成します。
+Step 2：pipelineを作成します
 ```cpp
     sy3::pipeline *pline = sy3::sy3_create_pipeline(ctx, e);
 ```
@@ -50,7 +50,7 @@ Step 5: rgb、tofフレームデータを取得します
     sy3::frameset *frameset = pline->wait_for_frames(SY3_DEFAULT_TIMEOUT, e);
     sy3::depth_frame *depth_frame = frameset->get_depth_frame();
 ```
-Step 6：rgb、tofフレームデータの位置合わせを行います。
+Step 6：rgb、tofフレームデータの位置合わせを行います
 ```cpp
     sy3::frameset *set = pline->get_process_engin(e)->align_to_rgb(depth, rgb, e);
     //位置合わせ後のtofデータ
@@ -59,14 +59,14 @@ Step 6：rgb、tofフレームデータの位置合わせを行います。
     set->get_rgb_frame();
     //両方の解像度とも1920*1080です
 ```
-Step 7:ToF画像をレンダリングします。
+Step 7:ToF画像をレンダリングします
 ```cpp
     cv::Mat gray16(piexls_depth->get_height(), piexls_depth->get_width(), CV_16UC1, 	piexls_depth->get_data());
 	cv::Mat tmp;
 	cv::Mat gray8 = cv::Mat::zeros(gray16.size(), CV_8U);
 	cv::normalize(gray16, tmp, 0, 255, cv::NORM_MINMAX);
 ```
-Step 8:RGB画像をレンダリングします。
+Step 8:RGB画像をレンダリングします
 ```cpp
    cv::Mat yuvImg(piexls_rgb->get_height(), piexls_rgb->get_width(), CV_8UC3, piexls_rgb->get_data());
 ```

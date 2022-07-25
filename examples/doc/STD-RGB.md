@@ -1,4 +1,4 @@
-# STD-DisplayRGB Sample
+# [STD-DisplayRGB](https://github.com/StereoHMS/StereoSTD/blob/master/examples/STD_rgb.cpp) Sample
 
 ## Overview
 
@@ -8,7 +8,7 @@ STD-rgbがカラーデータストリームを読み取ることでカメラの�
 ## Expected Output
 
 実行するとウインドウでRGBの画面が表示されます。
-<p align="center"><img src="doc/img/rgb.png" width="100%" /><br><br></p>
+<p align="center"><img src="https://github.com/StereoHMS/StereoSTD/blob/master/examples/doc/img/rgb.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
