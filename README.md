@@ -28,7 +28,7 @@ Stereo STD　開発用のSDKなどは下記のサイトにてご確認いただ�
 | 項目 | 説明 | ダウンロードリンク|
 | ------- | ------- | ------- |
 | **Stereo STD Viewer** | このアプリでSTDカメラにすばやくアクセスし、デプスとRGBストリームの取得、RGB-dの可視化、カメラ設定の変更、点群の出力、デプスストリームの可視化とフィルター処理などを実現できます。 | [**Stereo STD viewer.exe**](https://singray-stereo.com/category/support/stdsoftware/) |
-| **[Code Samples](./examples)** |これらのサンプルは、SDKを使用してカメラにアクセスするコードスニペットをアプリケーションに簡単に入れる方法を紹介しています。 [**C++ examples**](./examples) | [**Stereo STD  SDK.exe**](https://singray-stereo.com/category/support/stdsoftware/)に含まれています。 |
+| **[Code Samples](./examples)** |これらのサンプルは、SDKを使用してカメラにアクセスするコードスニペットをアプリケーションに簡単に入れる方法を紹介しています。 [**C++ examples**](./examples/doc/) | [**Stereo STD  SDK.exe**](https://singray-stereo.com/category/support/stdsoftware/)に含まれています。 |
 
 
 
