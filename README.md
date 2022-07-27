@@ -1,5 +1,5 @@
 # StereoSTD
-<p align="center"><img src="doc/img/STD.png" width="70%" /><br><br></p>
+<p align="center"><img src="doc/img/STD.jpg" width="70%" /><br><br></p>
 
 -----------------
 [![GitHub CI](../../actions/workflows/buildsCI.yaml/badge.svg?branch=development)](../../actions/workflows/buildsCI.yaml)
