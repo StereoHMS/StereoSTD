@@ -10,7 +10,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 if(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
  
 	message("current platform: Linux ")
-message("current platform: Linux ")
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/Linux64)
 
@@ -36,7 +35,7 @@ endif()
 
 
 
-if(WIN32)
+if(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
   set(OpenCV_LIBS 
     opencv_core440
     opencv_imgproc440
@@ -44,7 +43,7 @@ if(WIN32)
     opencv_highgui440
     opencv_videoio440
     opencv_calib3d440)
-elseif(UNIX)
+elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
 set(OpenCV_LIBS 
     opencv_core
     opencv_imgproc
