@@ -14,7 +14,7 @@ if(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/Linux64)
 
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../examples/third-party/opencv-4.4.0/include)
-	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../examples/third-party/opencv-4.4.0/lib/x64/shared)
+	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../examples/third-party/opencv-4.4.0/lib/Linux64/shared)
  
 elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
  
