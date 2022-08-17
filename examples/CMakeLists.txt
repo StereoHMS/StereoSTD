@@ -102,6 +102,11 @@ elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
 	add_executable(raw STD_raw.cpp)
 	target_link_libraries(raw  PRIVATE libsynexens3 ${OpenCV_LIBS})
 	set_property(TARGET raw PROPERTY FOLDER Samples)
+
+
+	add_executable(STD-AutoDepth STD-AutoDepth.cpp)
+	target_link_libraries(raw  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET raw PROPERTY FOLDER Samples)
  
 else()
  
