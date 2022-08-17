@@ -161,7 +161,7 @@ void show_depth_frame(sy3::depth_frame *frame, const char* name)
 		cv::imshow("test", yuvImg);
 
 		 sy3::sy3_intrinsics intrinsics = frame->get_profile()->get_intrinsics();
-		 printf("intrinsics: %d x %d \n", intrinsics.width, intrinsics.height);
+		 //printf("intrinsics: %d x %d \n", intrinsics.width, intrinsics.height);
 	}
 
 }
@@ -200,10 +200,6 @@ int main(int argc, char **argv)
 
 	while (!quit)
 	{
-		cv::waitKey(1);
-
-
-
 		sy3::frameset *frameset = pline->wait_for_frames(SY3_DEFAULT_TIMEOUT, e);
 		sy3::depth_frame *depth_frame = frameset->get_depth_frame();
 		sy3::ir_frame *ir_frame = frameset->get_ir_frame();
