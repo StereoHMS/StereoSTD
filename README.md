@@ -77,10 +77,11 @@ int main(int argc, char **argv)
         sy3::rgb_frame *rgb_frame = frameset->get_rgb_frame(); 
         sy3::process_engine *engine = pline->get_process_engin(e) ;
         //rgbdの位置合わせ
-        if (depth_frame && rgb_frame)
-　　　　sy3::frameset *align_set=engine->align_to_rgb(depth_frame,rgb_frame,e); 
-　　　　delete frameset; 
-　　　　delete align_set; 
+        if (depth_frame && rgb_frame){
+　　　 　sy3::frameset *align_set=engine->align_to_rgb(depth_frame,rgb_frame,e); 　　
+　　　　 delete align_set; 
+        }
+        delete frameset; 
 　　} 
 　return 0;
 }
