@@ -1,6 +1,7 @@
 ﻿#include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <thread>
 
 #define RAW_WIDTH 1280
 #define RAW_HEIGHT 960
@@ -218,15 +219,6 @@ void show_align_rgbd(sy3::depth_frame *depth, sy3::rgb_frame *rgb, sy3::process_
 	{
 
 		sy3::frameset *set = engine->align_to_rgb(depth, rgb, e);
-		/*show_depth_frame(set->get_depth_frame(), "algin_depth");
-		show_rgb_rgb_frame(set->get_rgb_frame(), "algin_rgb");*/
-		/*cv::Mat gray16(frame->get_height(), frame->get_width(), CV_16UC1, frame->get_data());
-		cv::Mat tmp;
-		cv::Mat gray8 = cv::Mat::zeros(gray16.size(), CV_8U);
-		cv::normalize(gray16, tmp, 0, 255, cv::NORM_MINMAX);
-		cv::convertScaleAbs(tmp, gray8);
-		cv::namedWindow(name, cv::WINDOW_NORMAL);
-		cv::imshow(name, gray8);*/
 		Render((uint8_t*)set->get_depth_frame()->get_data(), (uint8_t*)set->get_rgb_frame()->get_data(), set->get_rgb_frame()->get_width(),
 			set->get_rgb_frame()->get_height());
 

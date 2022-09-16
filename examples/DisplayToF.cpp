@@ -1,9 +1,9 @@
-#include "libsynexens3/libsynexens3.h"
+﻿#include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 #include<thread>
 
-#define DEPTH_WINDOW_NAME "DEPTH"
+#define DEPTH_WINDOW_NAME "DEPTH IR"
 
 #if 1
 #define DEPTH_WIDTH 640
@@ -95,76 +95,62 @@ void show_depth_frame(sy3::depth_frame *frame, const char* name)
 
 		uint8_t* depth_color = frame->apply_colormap();
 		cv::Mat yuvImg(frame->get_height(), frame->get_width(), CV_8UC3, depth_color);
+
 		
+		cv::namedWindow("depth", cv::WINDOW_NORMAL);
+		cv::resizeWindow("depth", frame->get_width(), frame->get_height());
+		cv::imshow("depth", yuvImg);
 
+	
+	}
 
-		//get 10*10 pixel middle value
-		uint16_t* depthdata = (uint16_t*)frame->get_data();
-		const int pixel_count = 100;
-		const int radius = 5;
-		float p1[pixel_count] = { 0 };
-		int index_p1 = 0;
-		for (int i = -radius; i < radius; i++)
-			for (int j = -radius; j < radius; j++) {
-				int row = frame->get_height() / 2 + i;
-				int col = frame->get_width() / 2 + j;
-				p1[index_p1] = depthdata[row * frame->get_width() + col];
-				index_p1++;
+}
+int keyCode = -1;
+void GetkeyThread()
+{
+	int key = -1;
+	try
+	{
+		while (true)
+		{
+			std::cerr << "Enter code" << std::endl;
+			std::cout << "---------------------------" << std::endl;
+			std::cout << "| a     Turn 640*480      |" << std::endl;
+			std::cout << "| s     Turn 320*240      |" << std::endl;
+			std::cout << "| d     FILTER on         |" << std::endl;
+			std::cout << "| f     FILTER off        |" << std::endl;
+			std::cout << "| g  TOF_IMAGE_FLIP off   |" << std::endl;
+			std::cout << "| h  TOF_IMAGE_FLIP on    |" << std::endl;
+			std::cout << "| j  TOF_IMAGE_MIRROR on  |" << std::endl;
+			std::cout << "| k  TOF_IMAGE_MIRROR off |" << std::endl;
+			std::cout << "| l  Set _EXPOSURE   300  |" << std::endl;
+			std::cout << "| w  Set _EXPOSURE   1000 |" << std::endl;
+			std::cout << "| e  Set _EXPOSURE   000  |" << std::endl;
+			std::cout << "| q        -Quit-         |" << std::endl;
+			std::cout << "---------------------------" << std::endl;
+			//std::cout << "a" << std::endl;
+			//std::cin.get();
+
+			key = std::cin.get();
+			if (key != 10)
+			{
+				//std::cout << "your code " << key << std::endl;
+				keyCode = key;
 			}
 
 
 
-		std::sort(p1, p1 + pixel_count);// min 2 max
-		int sum_p1 = 0;
-		for (int i = 0; i < pixel_count; i++) {
-			sum_p1 += p1[i];
 		}
-		//cout << std::endl;
-		int average = sum_p1 / pixel_count;
-		/*std::cout << "  average : " << average << "  min : " << p1[0]
-			<< "  max : " << p1[pixel_count - 1] << "  median  : " << p1[pixel_count / 2 - 1] << " max min diff value  :"
-			<< p1[pixel_count - 1] - p1[0] << std::endl;*/
-		int centerdepth = depthdata[640 * 480 / 2 + 640 / 2];
-		std::string center_depth = "cer : " + std::to_string(centerdepth);
-		std::string avg_depth = "avg : " + std::to_string(average);
-		std::string log = center_depth + " " + avg_depth + " dif " + std::to_string(centerdepth - average);
-	
 
-
-
-
-
-		std::string msg = std::to_string(frame->get_width())+ "x"+std::to_string(frame->get_height()) + " fps:" + std::to_string(g_fps);
-		int font_face = cv::FONT_HERSHEY_COMPLEX;
-		double font_scale = 1;
-		int thickness = 1;
-		int baseline;
-		cv::Size text_size = cv::getTextSize(msg, font_face, font_scale, thickness, &baseline);
-		
-		cv::Point origin;
-		origin.x = yuvImg.cols / 2 - text_size.width / 2;
-		origin.y = 0 + text_size.height;
-		cv::putText(yuvImg, msg, origin, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 2, 0);
-
-
-		cv::Point originlog;
-		originlog.x = yuvImg.cols / 2 - text_size.width;
-		originlog.y = yuvImg.rows;
-		cv::putText(yuvImg, log, originlog, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 2, 0);
-
-
-		cv::rectangle(yuvImg, cv::Point(yuvImg.size().width / 2 - 5, yuvImg.size().height / 2 - 5), cv::Point(yuvImg.size().width / 2 + 5, yuvImg.size().height / 2 + 5), cv::Scalar(0, 255, 255));
-
-
-		cv::namedWindow("test", cv::WINDOW_NORMAL);
-		cv::resizeWindow("test", frame->get_width(), frame->get_height());
-		cv::imshow("test", yuvImg);
-
-		 sy3::sy3_intrinsics intrinsics = frame->get_profile()->get_intrinsics();
-		 //printf("intrinsics: %d x %d \n", intrinsics.width, intrinsics.height);
+	}
+	catch (const std::exception&)
+	{
+		std::cout << "enter error" << std::endl;
 	}
 
+
 }
+
 
 int main(int argc, char **argv)
 {
@@ -191,12 +177,14 @@ int main(int argc, char **argv)
 
 	bool quit = false;
 	int nIndex = 0;
-	int switch_flag = 1;
+	
 	g_is_start = true;
 
 	std::thread fpsThread = std::thread(calculate_framerate);
 
-	uint16_t filter_value = 0;
+	uint16_t filter_on = 1;
+	uint16_t filter_off = 0;
+	std::thread t(GetkeyThread);
 
 	while (!quit)
 	{
@@ -216,84 +204,99 @@ int main(int argc, char **argv)
 		}
 
 		delete frameset;
-		nIndex++;
-		switch (cv::waitKey(30))
+		cv::waitKey(1);
+		switch (keyCode)
 		{
 
 		case 'a':
 		{
-
+			std::cout << "code " << keyCode << " | -----Turn 640*480----- |"<< std::endl;
 			pline->stop(e);
 			cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_DEPTH, 640, 480, e);
 			cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_IR, 640, 480, e);
 			pline->start(cfg, e);
-			switch_flag = !switch_flag;
-			nIndex = 1;
+			
+			
 			printf("%s  %d   switch 640x480\n", __FILE__, __LINE__);
 		}
 		break;
 
-		case 'b':
-		{
+		case 's':
+		{	
+			std::cout << "code " << keyCode << " | -----Turn 320*240----- |" << std::endl;
 			pline->stop(e);
 			cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_DEPTH, 320, 240, e);
 			cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_IR, 320, 240, e);
-			pline->start(cfg, e);
-			switch_flag = !switch_flag;
-			nIndex = 0;
+			pline->start(cfg, e);			
+			
 			printf("%s  %d   switch 320x240\n", __FILE__, __LINE__);
-		}
-		break;
-
-		case 'c':
-		{
-
-			uint16_t value;
-			dev->get_sensor(e)->get_option(sy3::sy3_option::SY3_OPTION_DEPTH_IMAGE_FILTER, value, e);
-			printf("SY3_OPTION_DEPTH_IMAGE_FILTER:%d \n", value);
 		}
 		break;
 
 		case 'd':
 		{
-			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_DEPTH_IMAGE_FILTER, filter_value, e);
-			filter_value = !filter_value;
+			std::cout << "code " << keyCode << " | -----Turn SY3_OPTION_DEPTH_IMAGE_FILTER---ON-- |" << std::endl;
+
+			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_DEPTH_IMAGE_FILTER, filter_on, e);
+			
 		}
 		break;
 
-		case '0':
+		case 'f':
 		{
+			std::cout << "code " << keyCode << " | -----Turn SY3_OPTION_DEPTH_IMAGE_FILTER--OFF--- |" << std::endl;
+
+			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_DEPTH_IMAGE_FILTER, filter_off, e);
+			
+		}
+		break;
+
+		case 'g':
+		{
+			std::cout << "code " << keyCode << " | -----Turn SY3_OPTION_TOF_IMAGE_FLIP off----- |" << std::endl;
+
 			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_TOF_IMAGE_FLIP, 0, e);
 		}
 		break;
 
-		case '1':
+		case 'h':
 		{
+			std::cout << "code " << keyCode << " | -----Turn SY3_OPTION_TOF_IMAGE_FLIP on----- |" << std::endl;
+
 			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_TOF_IMAGE_FLIP, 1, e);
 		}
 		break;
 
-		case '2':
+		case 'j':
 		{
-			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_TOF_IMAGE_MIRROR, 0, e);
-		}
-		break;
+			std::cout << "code " << keyCode << " | -----Turn SY3_OPTION_TOF_IMAGE_MIRROR on----- |" << std::endl;
 
-		case '3':
-		{
 			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_TOF_IMAGE_MIRROR, 1, e);
 		}
 		break;
 
-		case 'e': {
+		case 'k':
+		{
+			std::cout << "code " << keyCode << " | -----Turn SY3_OPTION_TOF_IMAGE_MIRROR off----- |" << std::endl;
+
+			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_TOF_IMAGE_MIRROR, 0, e);
+		}
+		break;
+
+		case 'l': {
+			std::cout << "code " << keyCode << " | -----set SY3_OPTION_EXPOSURE   300----- |" << std::endl;
+
 			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_EXPOSURE, 300, e);
 		} break;
 
-		case 'f': {
+		case 'w': {
+			std::cout << "code " << keyCode << " | -----set SY3_OPTION_EXPOSURE   1000----- |" << std::endl;
+
 			dev->get_sensor(e)->set_option(sy3::sy3_option::SY3_OPTION_EXPOSURE, 1000, e);
 		} break;
 
-		case 'g': {
+		case 'e': {
+			std::cout << "code " << keyCode << " | -----set SY3_OPTION_EXPOSURE   0----- |" << std::endl;
 
 			uint16_t exposure = 0;
 			dev->get_sensor(e)->get_option(sy3::sy3_option::SY3_OPTION_EXPOSURE, exposure, e);
@@ -301,6 +304,7 @@ int main(int argc, char **argv)
 		} break;
 
 		case 'q': {
+			std::cout << "code " << keyCode << " | -----Quit----- |" << std::endl;
 
 			g_is_start = false;
 			pline->stop(e);
@@ -310,12 +314,17 @@ int main(int argc, char **argv)
 			quit = true;
 			break;
 
-		}break;
-
-		default:
-
-			break;
 		}
+		default: {
+
+			
+		}
+		break;
+
+
+		
+		}
+		keyCode = -1;
 
 	}
 	system("pause");

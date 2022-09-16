@@ -1,4 +1,4 @@
-#include "libsynexens3/libsynexens3.h"
+﻿#include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
@@ -22,7 +22,27 @@ void show_rgb_nv12_frame(sy3::frame *frame, const char *name)
 		//	print_intri(rgb_inteinics);
 	}
 }
+void print_device_info(sy3::device *dev)
+{
+	sy3::sy3_error e;
+	printf("\nUsing device 0, an %s\n", sy3::sy3_get_device_info(dev, sy3::SY3_CAMERA_INFO_NAME, e));
+	printf("    Serial number: %s\n", sy3::sy3_get_device_info(dev, sy3::SY3_CAMERA_INFO_SERIAL_NUMBER, e));
+	printf("    Firmware version: %s\n\n", sy3::sy3_get_device_info(dev, sy3::SY3_CAMERA_INFO_FIRMWARE_VERSION, e));
+}
+void print_support_format(sy3::device *dev, sy3::sy3_error &e)
+{
 
+	std::vector<sy3::sy3_stream> support_stream = dev->get_support_stream(e);
+	for (int i = 0; i < support_stream.size(); i++)
+	{
+		printf("support stream:%s \n", sy3_stream_to_string(support_stream[i]));
+		std::vector<sy3::sy3_format> support_format = dev->get_support_format(support_stream[i], e);
+		for (int j = 0; j < support_format.size(); j++)
+		{
+			printf("\t\t support format:%d x %d \n", support_format[j].width, support_format[j].height);
+		}
+	}
+}
 int main(int argc, char **argv)
 {
 	sy3::sy3_error e;
@@ -34,9 +54,10 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-
+	
 	sy3::pipeline *pline = sy3::sy3_create_pipeline(ctx, e);
-
+	print_support_format(dev, e);
+	print_device_info(dev);
 
 	sy3::config *cfg = sy3_create_config(e);
 	cfg->enable_stream(sy3::sy3_stream::SY3_STREAM_RGB, RGB_WIDTH, RGB_HEIGHT, e);

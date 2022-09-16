@@ -26,27 +26,27 @@ elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
 	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Qhull/include)
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Qhull/lib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/include/pcl-1.11)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/include/pcl-1.11)
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/lib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/FLANN/include)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/FLANN/include)
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/FLANN/lib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/VTK/include/vtk-8.2)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/VTK/include/vtk-8.2)
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/VTK/lib)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Eigen/eigen3)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Eigen/eigen3)
 	#link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/opencv-4.4.0/lib/x64/shared)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Boost/include/boost-1_74)
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Boost/include/boost-1_74)
 	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pcl/3rdParty/Boost/lib)
 
  
-else()
+	else()
  
 	message("current platform: unkonw ")
  
-endif()
+	endif()
 
 
 
@@ -99,56 +99,58 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -fopenmp")
 
 if(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
  
-	add_executable(depth STD_depth.cpp)
-	target_link_libraries(depth  PRIVATE synexens3 ${OpenCV_LIBS})
-	set_property(TARGET depth PROPERTY FOLDER Samples)
-
-
-	add_executable(rgb STD_rgb.cpp)
-	target_link_libraries(rgb  PRIVATE synexens3 ${OpenCV_LIBS})
-	set_property(TARGET rgb PROPERTY FOLDER Samples)
-
-
-	add_executable(align STD_align.cpp)
-	target_link_libraries(align  PRIVATE synexens3 ${OpenCV_LIBS})
-	set_property(TARGET align PROPERTY FOLDER Samples)
-
-
-	add_executable(pointcloud STD_pointcloud.cpp)
-	target_link_libraries(pointcloud  PRIVATE synexens3 ${OpenCV_LIBS})
-	set_property(TARGET pointcloud PROPERTY FOLDER Samples)
+	
  
 elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
  
-	add_executable(depth STD_depth.cpp)
-	target_link_libraries(depth  PRIVATE libsynexens3 ${OpenCV_LIBS})
-	set_property(TARGET depth PROPERTY FOLDER Samples)
+	add_executable(Hello-StereoSTD Hello-StereoSTD.cpp)
+	target_link_libraries(Hello-StereoSTD  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET Hello-StereoSTD PROPERTY FOLDER Samples)
 
 
-	add_executable(rgb STD_rgb.cpp)
-	target_link_libraries(rgb  PRIVATE libsynexens3 ${OpenCV_LIBS})
-	set_property(TARGET rgb PROPERTY FOLDER Samples)
+	add_executable(Distance Distance.cpp)
+	target_link_libraries(Distance  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET Distance PROPERTY FOLDER Samples)
 
 
-	add_executable(align STD_align.cpp)
-	target_link_libraries(align  PRIVATE libsynexens3 ${OpenCV_LIBS})
-	set_property(TARGET align PROPERTY FOLDER Samples)
+	add_executable(DisplayRGB DisplayRGB.cpp)
+	target_link_libraries(DisplayRGB  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET DisplayRGB PROPERTY FOLDER Samples)
 
 
-	add_executable(pointcloud STD_pointcloud.cpp)
-	target_link_libraries(pointcloud  PRIVATE libsynexens3 ${OpenCV_LIBS})
-	set_property(TARGET pointcloud PROPERTY FOLDER Samples)
+	add_executable(DisplayToF DisplayToF.cpp)
+	target_link_libraries(DisplayToF  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET DisplayToF PROPERTY FOLDER Samples)
 
 
-	add_executable(STD-AutoDepth STD-AutoDepth.cpp)
-	target_link_libraries(STD-AutoDepth  PRIVATE libsynexens3 ${OpenCV_LIBS})
-	set_property(TARGET STD-AutoDepth PROPERTY FOLDER Samples)
+	add_executable(Capture_Save Capture_Save.cpp)
+	target_link_libraries(Capture_Save  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET Capture_Save PROPERTY FOLDER Samples)
+ 
+	add_executable(PointCloud_PCD_PLY PointCloud_PCD_PLY.cpp)
+	target_link_libraries(PointCloud_PCD_PLY  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET PointCloud_PCD_PLY PROPERTY FOLDER Samples)
+ 
+	add_executable(SpatialAlignment Spatial_Alignment.cpp)
+	target_link_libraries(SpatialAlignment  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET SpatialAlignment PROPERTY FOLDER Samples)
+ 
+	add_executable(PostProcessing PostProcessing.cpp)
+	target_link_libraries(PostProcessing  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET PostProcessing PROPERTY FOLDER Samples)
  
 
-	add_executable(ShowPointcloud ShowPointcloud.cpp)
-	target_link_libraries(ShowPointcloud  PRIVATE libsynexens3 ${OpenCV_LIBS})
-	target_link_libraries(ShowPointcloud  PRIVATE libsynexens3 ${PCL_LIBS})
-	set_property(TARGET ShowPointcloud PROPERTY FOLDER Samples)
+	add_executable(StreamRecording StreamRecording.cpp)
+	target_link_libraries(StreamRecording  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	set_property(TARGET StreamRecording PROPERTY FOLDER Samples)
+ 
+
+
+
+	add_executable(3DSpatialAlignment Spatial_Alignment3D.cpp)
+	target_link_libraries(3DSpatialAlignment  PRIVATE libsynexens3 ${OpenCV_LIBS})
+	target_link_libraries(3DSpatialAlignment  PRIVATE libsynexens3 ${PCL_LIBS})
+	set_property(TARGET 3DSpatialAlignment PROPERTY FOLDER Samples)
 	
 	
 else()
