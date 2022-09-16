@@ -1,6 +1,0 @@
-libboost_wave-vc142-mt-gd-x64-1_74.lib filter=lfs diff=lfs merge=lfs -text
-libboost_log_setup-vc142-mt-gd-x64-1_74.lib filter=lfs diff=lfs merge=lfs -text
-<<<<<<< HEAD
-libboost_log-vc142-mt-gd-x64-1_74.lib filter=lfs diff=lfs merge=lfs -text
-=======
->>>>>>> 02e71ebdc9ceeeb8788f24af94a238a1379f9127
