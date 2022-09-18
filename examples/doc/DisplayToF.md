@@ -10,11 +10,17 @@ f     FILTER on
 g  TOF_IMAGE_FLIP off  
 h  TOF_IMAGE_FLIP on   
 j  TOF_IMAGE_MIRROR on 
+
 k  TOF_IMAGE_MIRROR off 
+
 l  Set _EXPOSURE   300 
+
 w  Set _EXPOSURE   1000
+
 e  Set _EXPOSURE   000 
+
 q -Quit-       		  
+
 ## Expected Output
 実行成功すると、TOFの疑似カラー画面が表示され、と同時に、TOFの基本機能ボタンと説明も表示されます。
 <p align="center"><img src="/examples/doc/img/DisplayToF1.png" width="100%" /><br><br></p>
@@ -44,8 +50,8 @@ Set exposure 0
 ```cpp
 #include "libsynexens3/libsynexens3.h"
 #include <opencv2/opencv.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
-#include<thread>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <thread>
 #include <stdlib.h>
 #include <stdio.h>
 ```

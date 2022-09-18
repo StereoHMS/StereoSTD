@@ -80,6 +80,7 @@ Step 4：デプスデータとRGBデータを取得して表示します。
         delete frameset;
 		cv::waitKey(1);	
 	}
+```
 初始化PCLViewer
 ```cpp
     viewer = boost::shared_ptr<pcl::visualization::PCLVisualizer>(new pcl::visualization::PCLVisualizer("3D Viewer"));

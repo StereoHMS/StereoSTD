@@ -6,7 +6,7 @@
 			  
 ## Expected Output
 実行するとRGBの画面（1920*1080）が表示されます。
-<p align="center"><img src="/examples/doc/img/DispalyRGB.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayRGB.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
