@@ -6,7 +6,7 @@ Hello-StereoSTD このサンプルではデバイスへの接続とデバイス�
 			  
 ## Expected Output
 
-<p align="center"><img src="examples/doc/img/HelloStereoSTD.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/HelloStereoSTD.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
