@@ -6,8 +6,8 @@
 
 ## Expected Output
 実行成功すると、RGBDインターフェイスで取得したToFデータとRGBデータ、および位置合わせ後の画像は、「p」キーを押すことで現在のディレクリで保存されます。
-<p align="center"><img src="doc/img/Spatial Alignment.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/Spatial Alignment1.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Spatial Alignment.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Spatial Alignment1.png" width="100%" /><br><br></p>
 
 ## Code Overview
 

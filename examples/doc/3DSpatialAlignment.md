@@ -6,8 +6,8 @@
 
 ## Expected Output
 実行すると、PCL Viewerで点群データが表示されます。
-<p align="center"><img src="doc/img/3D Spatial Alignment.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/3D Spatial Alignment1.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/3D Spatial Alignment.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/3D Spatial Alignment1.png" width="100%" /><br><br></p>
 
 ## Code Overview
 

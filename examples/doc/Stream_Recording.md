@@ -6,9 +6,9 @@
 
 ## Expected Output
 実行成功すると、’w’キーを押すと録画が開始し、‘q’キーを押すことで録画を中止できます。
-<p align="center"><img src="doc/img/Stream Recording.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/Stream Recording1.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/Stream Recording2.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Stream Recording.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Stream Recording1.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Stream Recording2.png" width="100%" /><br><br></p>
 ## Code Overview
 
 初めに、SDKのヘッダーファイルとOpenCVを参照する必要があります。

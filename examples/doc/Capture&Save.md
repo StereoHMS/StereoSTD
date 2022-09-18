@@ -7,8 +7,8 @@
 ## Expected Output
 実行成功するとToFデプス疑似カラー画像（640*480）とRGB画像（1920*1080）が表示されます。
 キーボードで「w」キーを押すと、画像が現在のディレクリで保存されます。
-<p align="center"><img src="doc/img/Capture&Save.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/Capture&Save1.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Capture&Save.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Capture&Save1.png" width="100%" /><br><br></p>
 
 ## Code Overview
 

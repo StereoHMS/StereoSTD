@@ -17,27 +17,27 @@ e  Set _EXPOSURE   000
 q -Quit-       		  
 ## Expected Output
 実行成功すると、TOFの疑似カラー画面が表示され、と同時に、TOFの基本機能ボタンと説明も表示されます。
-<p align="center"><img src="doc/img/DisplayToF1.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF1.png" width="100%" /><br><br></p>
 Switch 320*240
-<p align="center"><img src="doc/img/DisplayToF2.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF2.png" width="100%" /><br><br></p>
 Filter on
-<p align="center"><img src="doc/img/DisplayToF3.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF3.png" width="100%" /><br><br></p>
 Filter off
-<p align="center"><img src="doc/img/DisplayToF4.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF4.png" width="100%" /><br><br></p>
 Filp off
-<p align="center"><img src="doc/img/DisplayToF5.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF5.png" width="100%" /><br><br></p>
 Filp on
-<p align="center"><img src="doc/img/DisplayToF6.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF6.png" width="100%" /><br><br></p>
 Mirror on 
-<p align="center"><img src="doc/img/DisplayToF7.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF7.png" width="100%" /><br><br></p>
 Mirror off
-<p align="center"><img src="doc/img/DisplayToF8.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF8.png" width="100%" /><br><br></p>
 Set exposure 300
-<p align="center"><img src="doc/img/DisplayToF9.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF9.png" width="100%" /><br><br></p>
 Set exposure 1000
-<p align="center"><img src="doc/img/DisplayToF10.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF10.png" width="100%" /><br><br></p>
 Set exposure 0
-<p align="center"><img src="doc/img/DisplayToF11.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/DisplayToF11.png" width="100%" /><br><br></p>
 ## Code Overview
 
 初めに、SDKのヘッダーファイルとOpenCVを参照する必要があります。

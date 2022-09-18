@@ -7,13 +7,13 @@
 
 ## Expected Output
 RGBDインターフェイスで取得したToFデータとRGBデータ、および位置合わせ後の画像は、「p」キーを押すことで現在のディレクリで保存されます。
-<p align="center"><img src="doc/img/PointCloud.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/PointCloud.png" width="100%" /><br><br></p>
 <p align="center"><img src="doc/img/PointCloud1.png" width="100%" /><br><br></p>
 pcdとplyファイルを保存する時、メモリの使用率は高いので、時間がかかります。
-<p align="center"><img src="doc/img/PointCloud2.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/PointCloud2.png" width="100%" /><br><br></p>
 保存したファイルはmeshlabまたは pcl_viewerで確認することができます。
-<p align="center"><img src="doc/img/PointCloud3.png" width="100%" /><br><br></p>
-<p align="center"><img src="doc/img/PointCloud4.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/PointCloud3.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/PointCloud4.png" width="100%" /><br><br></p>
 
 ## Code Overview
 

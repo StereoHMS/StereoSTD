@@ -6,7 +6,7 @@
 			  
 ## Expected Output
 実行成功すると、ToFモジュールのデプス疑似カラー画像が表示され、ウィンドウのサイズはToFの解像度（デフォルトでは640*480）によります。または解像度、画像中心のデプス値（cer）、画像センターエリア10*10ピクセルの平均デプス値（avg）と前後2フレームのデータの補間（dif）も表示されます。
-<p align="center"><img src="doc/img/Distance.png" width="100%" /><br><br></p>
+<p align="center"><img src="/examples/doc/img/Distance.png" width="100%" /><br><br></p>
 
 ## Code Overview
 
